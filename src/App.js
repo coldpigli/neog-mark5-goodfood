@@ -4,7 +4,34 @@ import Categories from './Categories';
 import items from './data';
 
 function App() {
-  return <h2>menu project setup</h2>;
+
+const categories = ['all', ...new Set(items.map((item)=>item.category))] ; 
+
+
+const [foods, setFoods] = useState(items);
+
+const filterItem = (category) => {
+  if(category === 'all'){
+    setFoods(items);
+    return;
+  }
+  const newCategories=items.filter((item)=>item.category===category)
+  setFoods(newCategories);
+}
+
+  return <main >
+    <section className = "menu section">
+    <div className="title">
+      <h2>Piyush's Good Food List</h2>
+      <div className="underline"></div>
+
+    </div>
+    <Categories categories={categories} filterItem = {filterItem}/>
+    <Menu foods = {foods}/>
+    </section>
+    
+    
+  </main>;
 }
 
 export default App;
